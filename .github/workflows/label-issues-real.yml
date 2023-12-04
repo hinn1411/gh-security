@@ -4,6 +4,7 @@ on:
     types:
       - opened
 # can set permission at workflow level
+# GITHUB_TOKEN are auto gen and is deleted after the job done
 jobs:
   assign-label:
     permissions: 
@@ -15,9 +16,11 @@ jobs:
         run: |
           curl -X POST \
           --url https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/labels \
-          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+          -H 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \ 
           -H 'content-type: application/json' \
           -d '{
               "labels": ["bug"]
             }' \
           --fail
+          
+          
